@@ -1,6 +1,7 @@
 package com.elo.cardgame.model;
 
 public class Player {
+
     private String name;
     private Hand hand;
 
@@ -24,5 +25,9 @@ public class Player {
     // remove a card from the player's hand
     public PlayingCard removeCard() {
         return hand.removeCard();
+    }
+
+    public String getName() {
+        return name;
     }
 }
