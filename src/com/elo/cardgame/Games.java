@@ -1,4 +1,4 @@
-package com.elo.cardgame.games;
+package com.elo.cardgame;
 
 import com.elo.cardgame.controller.GameController;
 import com.elo.cardgame.model.Deck;
