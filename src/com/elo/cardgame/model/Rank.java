@@ -1,7 +1,7 @@
 package com.elo.cardgame.model;
 
 public enum Rank {
-    NONE (0), // joker
+//    NONE (0), // joker
     TWO (2),
     THREE (3),
     FOUR (4),
