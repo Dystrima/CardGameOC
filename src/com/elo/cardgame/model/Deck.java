@@ -2,8 +2,8 @@ package com.elo.cardgame.model;
 
 import java.util.*;
 
-public class Deck {
-    private List<PlayingCard> cards; // a list to store all the cards
+public abstract class Deck {
+    protected List<PlayingCard> cards; // a list to store all the cards
 
     // constructor to create all 52 unique cards with 2 loops to get all ranks in all suits
     public Deck() {
