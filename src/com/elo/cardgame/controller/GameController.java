@@ -1,9 +1,7 @@
 package com.elo.cardgame.controller;
 
 import com.elo.cardgame.games.GameEvaluator;
-import com.elo.cardgame.model.Deck;
-import com.elo.cardgame.model.Player;
-import com.elo.cardgame.model.PlayingCard;
+import com.elo.cardgame.model.*;
 import com.elo.cardgame.view.GameViewable;
 
 import java.util.ArrayList;
@@ -16,8 +14,8 @@ public class GameController {
         AddingPlayers, CardsDealt, WinnerRevealed;
     }
     Deck deck;
-    List<Player> players;
-    Player winner;
+    List<IPlayer> players;
+    IPlayer winner;
     GameViewable view;
 
     // variable to contain game state
@@ -29,7 +27,7 @@ public class GameController {
         super();
         this.deck = deck;
         this.view = view;
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<IPlayer>();
         this.gameState = GameState.AddingPlayers;
         this.evaluator = gameEvaluator;
         view.setController(this);
@@ -64,7 +62,7 @@ public class GameController {
         if (gameState != GameState.CardsDealt) {
             deck.shuffle();
             int playerIndex = 1;
-            for (Player player : players) {
+            for (IPlayer player : players) {
                 player.addCardToHand(deck.removeTopCard());
                 view.showFaceDownCardForPlayer(playerIndex++, player.getName());
             }
@@ -76,7 +74,7 @@ public class GameController {
     // show cards and start over
     public void flipCards() {
         int playerIndex = 1;
-        for (Player player : players) {
+        for (IPlayer player : players) {
             PlayingCard pc = player.getCard(0);
             pc.flip();
             view.showCardForPlayer(playerIndex++, player.getName(), pc.getRank().toString(), pc.getSuit().toString());
@@ -89,7 +87,7 @@ public class GameController {
     }
 
     void evaluateWinner() {
-        winner = evaluator.evaluateWinner(players);
+        winner = new WinningPlayer(evaluator.evaluateWinner(players));
     }
 
     void displayWinner() {
@@ -97,7 +95,7 @@ public class GameController {
     }
 
     void rebuildDeck() {
-        for (Player player : players) {
+        for (IPlayer player : players) {
             deck.returnCardToDeck(player.removeCard());
         }
     }
